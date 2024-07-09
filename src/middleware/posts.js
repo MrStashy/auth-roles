@@ -1,3 +1,5 @@
+const prisma = require('../utils/prisma')
+
 async function verifyAdmin(req, res, next) {
     const user = await prisma.user.findUnique({
         where: {id: req.id}

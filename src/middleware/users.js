@@ -1,17 +1,5 @@
 const prisma = require('../utils/prisma')
-const jwt = require('jsonwebtoken')
 
-async function verifyToken(req, res, next) {
-    const [ _, token ] = req.get('Authorization').split(' ')
-    try {
-       const verifiedPayload = jwt.verify(token, process.env.JWT_SECRET)
-       req.id = verifiedPayload.sub
-    } catch (e) {
-        return res.status(403).json( {message: 'Access denied - user not logged in'} )
-    }
-
-    next()
-}
 
 async function verifyAdmin(req, res, next) {
     const user = await prisma.user.findUnique({
@@ -29,4 +17,4 @@ async function verifyAdmin(req, res, next) {
     next()
 }
 
-module.exports = { verifyAdmin, verifyToken }
+module.exports = { verifyAdmin }

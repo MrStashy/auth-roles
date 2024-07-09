@@ -1,11 +1,15 @@
 const express = require("express");
 const {
-  createPost
+  createPost,
+  deletePost
 } = require('../controllers/post');
-const { verifyToken } = require('../middleware/users')
+const { verifyToken } = require('../middleware/universal')
+const { verifyAdmin } = require('../middleware/posts')
 
 const router = express.Router();
 
-router.post("/", verifyToken, createPost);
+router.post("/", createPost);
+router.delete("/:id", verifyToken, verifyAdmin, deletePost)
+
 
 module.exports = router;
