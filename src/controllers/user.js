@@ -1,6 +1,6 @@
 const { PrismaClientKnownRequestError } = require("@prisma/client")
 const prisma = require('../utils/prisma.js')
-const { createUserDb } = require('../domains/user.js')
+const { createUserDb, getUsersDb, deleteUserDb } = require('../domains/user.js')
 
 const createUser = async (req, res) => {
   const {
@@ -30,16 +30,13 @@ const createUser = async (req, res) => {
 }
 
 async function getUsers (req, res) {
-  const users = await prisma.user.findMany()
+  const users = await getUsersDb()
   return res.status(200).json({ users })
 }
 
 async function deleteUser(req, res) {
-  const user = await prisma.user.delete({
-    where: {
-      id: Number(req.params.id)
-    }
-  })
+  const userId = Number(req.params.id)
+  const user = await deleteUserDb(userId)
   return res.status(200).json({ user })
 }
 
