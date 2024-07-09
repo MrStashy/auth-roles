@@ -35,9 +35,9 @@ async function getUsers (req, res) {
 }
 
 async function deleteUser(req, res) {
-  const user = prisma.user.delete({
+  const user = await prisma.user.delete({
     where: {
-      id: req.params.id
+      id: Number(req.params.id)
     }
   })
   return res.status(200).json({ user })
