@@ -34,7 +34,17 @@ async function getUsers (req, res) {
   return res.status(200).json({ users })
 }
 
+async function deleteUser(req, res) {
+  const user = prisma.user.delete({
+    where: {
+      id: req.params.id
+    }
+  })
+  return res.status(200).json({ user })
+}
+
 module.exports = {
   createUser,
-  getUsers
+  getUsers,
+  deleteUser
 }
