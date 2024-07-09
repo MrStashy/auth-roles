@@ -19,7 +19,7 @@ async function verifyAdmin(req, res, next) {
     })
    
     if (user.role !== 'ADMIN') {
-        return res.status(403).json( {message: 'Access denied - must be admin to access'} )
+        return res.status(403).json( {error: 'Access denied - must be admin to access'} )
     }
 
     next()
